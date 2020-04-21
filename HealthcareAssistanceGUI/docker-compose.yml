@@ -1,0 +1,45 @@
+#version: "3"
+#
+#networks:
+#
+#  project_net:
+#    external:
+#      name: project_net
+#
+#services:
+#
+#  frontend:
+#    container_name: frontend
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    ports:
+#      - 4200:4200
+#    networks:
+#      - project_net
+#    environment:
+#      - NODE_ENV=development
+#
+#
+
+
+version: "3"
+
+networks:
+
+  project_net:
+    external:
+      name: project_net
+services:
+
+  frontend:
+    container_name: frontend
+    build:
+      context: .
+      dockerfile: Dockerfile
+    networks:
+      - project_net
+    ports:
+      - 4200:4200
+    environment:
+      - CHOKIDAR_USEPOLLING=true

@@ -1,0 +1,160 @@
+
+<h2>Account Details</h2>
+<li><label>Name : </label> {{patient?.name}} </li>
+<li><label>Email : </label> {{patient?.email}} </li>
+<li><label>Address : </label> {{patient?.address}} </li>
+<li><label>Gender : </label> {{patient?.gender}} </li>
+<li><label>Birth date : </label> {{patient?.birthDate}} </li>
+
+ <!-- NOT TAKEN PILLS -->
+<h2>Monitored pills </h2>
+<div id="searchPatient" >
+  <form>
+    <label>Get not taken pills on : </label>
+    <input type="date" name="searchPatient" [(ngModel)]="notTakenPillsDate" >
+
+    <button class="btn btn-success" (click)="getPatientPills()">Search patient</button>
+  </form>
+</div>
+
+<table class="table table-bordered table-responsive-md table-striped text-center" [hidden]="hidden">
+  <tr>
+    <th class="text-center"> Id</th>
+    <th class="text-center"> Medication name</th>
+    <th class="text-center"> Status </th>
+    <th class="text-center">Taken Date</th>
+  </tr>
+  <tr *ngFor="let p of notTakenPills">
+    <td>
+      <span  contenteditable="true">{{p.id}}</span>
+    </td>
+    <td>
+      <span  contenteditable="true">{{p.medication?.name}}</span>
+    </td>
+    <td>
+      <span contenteditable="true"  >{{p.status}}</span>
+    </td>
+    <td>
+      <span contenteditable="true"  >{{p.takenDate}}</span>
+    </td>
+  </tr>
+</table>
+
+<br><br><br><br>
+
+<!-- ABNORMAL ACTIVITIES -->
+<h2>Abnormal activities </h2>
+<table class="table table-bordered table-responsive-md table-striped text-center">
+  <tr>
+    <th class="text-center"> Id</th>
+    <th class="text-center"> Type</th>
+    <th class="text-center"> Starts on</th>
+    <th class="text-center"> Ends on</th>
+    <th class="text-center">Anomaly status</th>
+  </tr>
+  <tr *ngFor="let a of activities">
+    <td>
+      <span  contenteditable="true">{{a.id}}</span>
+    </td>
+    <td>
+      <span  contenteditable="true">{{a.activity}}</span>
+    </td>
+    <td>
+      <span contenteditable="true"  >{{a.start}}</span>
+    </td>
+    <td>
+      <span contenteditable="true"  >{{a.end}}</span>
+    </td>
+    <td>
+      <span contenteditable="true"  >{{a.anomaly}}</span>
+    </td>
+  </tr>
+</table>
+
+<br><br><br><br>
+<div class="col-md-6">
+<h2>Write a recommendation </h2>
+<div id="writeRecommendation" >
+  <form name="something">
+    <label>Send Recommendation : </label>
+    <input type="text" class="form-control" id="msg" placeholder="text..." [(ngModel)]="message" name="Florin">
+    <div class="form-group">
+      <label for="patientsCaregiver">Caregiver</label>
+      <select id="patientsCaregiver" name="caregiver"  [(ngModel)]="recommendation.caregiver.id" >
+        <optgroup *ngFor="let c of caregivers" label="patientCaregivers">
+          <option (click)="setRecommendationCaregiver(c)" value="{{c.id}}">{{c.name}}</option>
+        </optgroup>
+      </select>
+    </div>
+    <button class="btn btn-success" (click)="writeRecommendation()">Send</button>
+  </form>
+</div>
+</div>
+
+<div class="col-md-4">
+<h2> Daily Activity status</h2>
+
+  <label>See activity status on : </label>
+  <div style="white-space: pre;" id="chart_1"  >
+    <google-chart #chart+
+       [title]=   this.title1
+        [type]=  this.chartType
+       [data]=  this.chartData1
+       [columnNames]= this.columnNames
+       [options]=  this.options
+       [width]=500
+       [height]=500 >
+       </google-chart>
+  </div>
+</div>
+
+<div class="col-md-4">
+  <h2> Daily Activity status</h2>
+
+  <label>See activity status : </label>
+  <div style="white-space: pre;"   >
+    <google-chart #chart+
+                  [title]=   this.title2
+                  [type]=  this.chartType
+                  [data]=  this.chartData2
+                  [columnNames]= this.columnNames
+                  [options]=  this.options
+                  [width]=500
+                  [height]=500 >
+    </google-chart>
+  </div>
+</div>
+
+<div class="col-md-4">
+  <h2> Daily Activity status</h2>
+
+  <label>See activity status : </label>
+  <div style="white-space: pre;"   >
+    <google-chart #chart+
+                  [title]=   this.title3
+                  [type]=  this.chartType
+                  [data]=  this.chartData3
+                  [columnNames]= this.columnNames
+                  [options]=  this.options
+                  [width]=500
+                  [height]=500 >
+    </google-chart>
+  </div>
+</div>
+
+
+
+
+<!--<h2>Patient's medication plan : </h2>-->
+<!--<ul *ngFor="let plan of patient?.medicalRecord">-->
+<!--  <li><label>Starts on : </label>{{plan.startDate}}</li>-->
+<!--  <li><label>Ends on : </label>{{plan.endDate}}</li>-->
+<!--  <li><label>Doctor's email: </label>{{plan.doctor.email}}</li>-->
+<!--  <li><label>Pills : <br></label>-->
+<!--    <ul *ngFor="let pill of plan?.pills">-->
+<!--      <li><label>Medication : </label>{{pill.medication.name}}</li>-->
+<!--      <li><label>Intake interval : </label>{{pill.intakeInterval}}</li>-->
+<!--      <li><label>Side effects : </label>{{pill.medication.sideEffects}}</li>-->
+<!--    </ul>-->
+<!--  </li>-->
+<!--</ul>-->

@@ -1,0 +1,426 @@
+<h2>Pajina doctorului</h2>
+
+<!-- PATIENT -->
+<div class="card">
+  <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Patients</h3>
+  <div class="card-body">
+    <div id="table" class="table-editable">
+      <span class="table-add float-right mb-3 mr-2">
+        <a class="text-success" (click)="createPatient()">
+          <i fas icon="plus" size="2x"></i>
+        </a>
+      </span>
+      <table class="table table-bordered table-responsive-md table-striped text-center">
+        <tr>
+          <th class="text-center"> Id</th>
+          <th class="text-center"> Name</th>
+          <th class="text-center">Email</th>
+          <th class="text-center">Address</th>
+          <th class="text-center">Birth date</th>
+          <th class="text-center">Gender</th>
+          <th class="text-center">Caregiver assigned</th>
+        </tr>
+        <tr *ngFor="let p of patients">
+          <td>
+            <span  contenteditable="true">{{p.id}}</span>
+          </td>
+          <td>
+            <span  contenteditable="true">{{p.name}}</span>
+          </td>
+          <td>
+            <span contenteditable="true" (blur)="updatePatient(p)" >{{p.email}}</span>
+          </td>
+          <td>
+            <span contenteditable="true" (blur)="updatePatient(p)" >{{p.address}}</span>
+          </td>
+          <td>
+            <span contenteditable="true" (blur)="updatePatient(p)" >{{p.birthDate}}</span>
+          </td>
+          <td>
+            <span contenteditable="true" (blur)="updatePatient(p)" >{{p.gender}}</span>
+          </td>
+          <td>
+            <span contenteditable="true" (blur)="updatePatient(p)" >{{p.caregiver?.name}}</span>
+          </td>
+          <td>
+            <span class="table-remove">
+              <button type="ready" color="danger" rounded="true" size="sm" class="my-0" (click)="deletePatient(p)">Remove</button>
+            </span>
+          </td>
+
+          <td>
+            <span class="table-remove">
+              <button type="ready" color="danger" rounded="true" size="sm" class="my-0" (click)="goToDetails(p)">Details</button>
+            </span>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div id="searchPatient" >
+  <form>
+    <label>Search patient number : </label>
+    <input type="number" name="searchPatient" [(ngModel)]="searchPatient.id" >
+    <div style="white-space: pre;">
+      <p>{{patientDetails}}</p>
+    </div>
+    <button class="btn btn-success" (click)="findPatientById(searchPatient)">Search patient</button>
+  </form>
+</div>
+
+<!-- Update -->
+<div class="col-md-6" align="center">
+  <h2>Update patient</h2>
+  <form id="updatePatientForm">
+    <div class="form-group">
+      <label >Patient id</label>
+      <input type="number" name="idPatient" class="form-control" [(ngModel)]="patientToBeUpdated.id"/>
+    </div>
+    <div class="form-group">
+      <label >Name</label>
+      <input type="text" name="Name" class="form-control" [(ngModel)]="patientToBeUpdated.name"/>
+    </div>
+    <div class="form-group">
+      <label >Email</label>
+      <input type="text"  name="email" class="form-control" [(ngModel)]="patientToBeUpdated.email"/><br>
+    </div>
+    <div class="form-group">
+      <label >Password</label>
+      <input type="password"  name="password" class="form-control" [(ngModel)]="patientToBeUpdated.password"/><br>
+    </div>
+    <div class="form-group">
+      <label >Address</label>
+      <input type="text"  name="address" class="form-control" [(ngModel)]="patientToBeUpdated.address" /><br>
+    </div>
+    <div class="form-group">
+      <label >Birth date</label>
+      <input type="date"  name="birthDate" class="form-control" [(ngModel)]="patientToBeUpdated.birthDate" /><br>
+    </div>
+    <div class="form-group">
+      <label >Gender</label>
+      <select  name="gender"  [(ngModel)]="patientToBeUpdated.gender" >
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="patientsCaregiver">Caregiver</label>
+        <select id="patientsCaregiver" name="caregiver"  [(ngModel)]="patientToBeUpdated.caregiver.id" >
+          <optgroup *ngFor="let c of caregivers" label="patientCaregivers">
+            <option (click)="changePatientCaregiver(c)" value="{{c.id}}">{{c.name}}</option>
+          </optgroup>
+        </select>
+    </div>
+    <button class="btn btn-success" (click)="updatePatient(patientToBeUpdated)">Update patient</button>
+  </form>
+</div>
+
+<!-- Add -->
+<div class="col-md-6">
+  <h2>Add patient</h2>
+  <form id="addPatientForm">
+    <div class="form-group">
+      <label for="Name">Name</label>
+      <input type="text" id="Name" name="Name" class="form-control" [(ngModel)]="patientToBeCreated.name"/>
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="text" id="email" name="email" class="form-control" [(ngModel)]="patientToBeCreated.email"/><br>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" class="form-control" [(ngModel)]="patientToBeCreated.password"/><br>
+    </div>
+    <div class="form-group">
+      <label for="address">Address</label>
+      <input type="text" id="address" name="address" class="form-control" [(ngModel)]="patientToBeCreated.address" /><br>
+    </div>
+    <div class="form-group">
+      <label for="birthDate">Birth date</label>
+      <input type="date" id="birthDate" name="birthDate" class="form-control" [(ngModel)]="patientToBeCreated.birthDate" /><br>
+    </div>
+    <div class="form-group">
+      <label for="gender">Gender</label>
+      <select id="gender" name="gender"  [(ngModel)]="patientToBeCreated.gender" >
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Caregiver</label>
+      <select  name="caregiverCreated"  [(ngModel)]="patientToBeCreated.caregiver.id" >
+        <optgroup *ngFor="let c of caregivers" label="patientCaregivers">
+          <option (click)="changePatientCaregiver(c)" value="{{c.id}}">{{c.name}}</option>
+        </optgroup>
+      </select>
+    </div>
+
+    <button class="btn btn-success" (click)="createPatient()">Add patient</button>
+  </form>
+</div>
+
+
+
+<br><br>
+<!-- CAREGIVER -->
+<div class="card">
+  <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Caregivers</h3>
+  <div class="card-body">
+    <div id="tableCaregiver" class="table-editable">
+      <span class="table-add float-right mb-3 mr-2">
+        <a class="text-success" (click)="createCaregiver()">
+          <i fas icon="plus" size="2x"></i>
+        </a>
+      </span>
+      <table class="table table-bordered table-responsive-md table-striped text-center">
+        <tr>
+          <th class="text-center"> Id</th>
+          <th class="text-center"> Name</th>
+          <th class="text-center">Email</th>
+          <th class="text-center">Address</th>
+          <th class="text-center">Birth date</th>
+          <th class="text-center">Gender</th>
+        </tr>
+        <tr *ngFor="let c of caregivers">
+          <td>
+            <span  contenteditable="true">{{c.id}}</span>
+          </td>
+          <td>
+            <span  contenteditable="true">{{c.name}}</span>
+          </td>
+          <td>
+            <span contenteditable="true"  >{{c.email}}</span>
+          </td>
+          <td>
+            <span contenteditable="true"  >{{c.address}}</span>
+          </td>
+          <td>
+            <span contenteditable="true" >{{c.birthDate}}</span>
+          </td>
+          <td>
+            <span contenteditable="true"  >{{c.gender}}</span>
+          </td>
+          <td>
+            <span class="table-remove">
+              <button type="ready" color="danger" rounded="true" size="sm" class="my-0" (click)="deleteCaregiver(c)">Remove</button>
+            </span>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+<!-- Update-->
+<div class="col-md-6" align="center">
+  <h2>Update caregiver</h2>
+  <form id="updateCaregiverForm">
+    <div class="form-group">
+      <label >Caregiver id</label>
+      <input type="number" name="idPatient" class="form-control" [(ngModel)]="caregiverToBeUpdated.id"/>
+    </div>
+    <div class="form-group">
+      <label >Name</label>
+      <input type="text" name="Name" class="form-control" [(ngModel)]="caregiverToBeUpdated.name"/>
+    </div>
+    <div class="form-group">
+      <label >Email</label>
+      <input type="text"  name="email" class="form-control" [(ngModel)]="caregiverToBeUpdated.email"/><br>
+    </div>
+    <div class="form-group">
+      <label >Password</label>
+      <input type="password"  name="password" class="form-control" [(ngModel)]="caregiverToBeUpdated.password"/><br>
+    </div>
+    <div class="form-group">
+      <label >Address</label>
+      <input type="text"  name="address" class="form-control" [(ngModel)]="caregiverToBeUpdated.address" /><br>
+    </div>
+    <div class="form-group">
+      <label >Birth date</label>
+      <input type="date"  name="birthDate" class="form-control" [(ngModel)]="caregiverToBeUpdated.birthDate" /><br>
+    </div>
+    <div class="form-group">
+      <label >Gender</label>
+      <select  name="gender"  [(ngModel)]="caregiverToBeUpdated.gender" >
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="patients">Patients</label>
+      <select id="patients" name="patients"    >
+        <optgroup *ngFor="let p of patients" label="patientCaregivers">
+          <option (click)="addPatientToCaregiver(p)" value="{{p}}">{{p.name}}</option>
+        </optgroup>
+      </select>
+    </div>
+    <button class="btn btn-success" (click)="updateCaregiver(caregiverToBeUpdated)">Update caregiver</button>
+  </form>
+</div>
+
+<!-- Add -->
+
+<div class="col-md-6">
+  <h2>Add caregiver</h2>
+  <form id="addCaregiverForm">
+    <div class="form-group">
+      <label for="Name">Name</label>
+      <input type="text" name="Name" class="form-control" [(ngModel)]="caregiverToBeCreated.name"/>
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="text" name="email" class="form-control" [(ngModel)]="caregiverToBeCreated.email"/><br>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password"  name="password" class="form-control" [(ngModel)]="caregiverToBeCreated.password"/><br>
+    </div>
+    <div class="form-group">
+      <label for="address">Address</label>
+      <input type="text" name="address" class="form-control" [(ngModel)]="caregiverToBeCreated.address" /><br>
+    </div>
+    <div class="form-group">
+      <label for="birthDate">Birth date</label>
+      <input type="date" name="birthDate" class="form-control" [(ngModel)]="caregiverToBeCreated.birthDate" /><br>
+    </div>
+    <div class="form-group">
+      <label for="gender">Gender</label>
+      <select name="gender"  [(ngModel)]="caregiverToBeCreated.gender" >
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+      </select>
+    </div>
+    <button class="btn btn-success" (click)="createCaregiver()">Add caregiver</button>
+  </form>
+</div>
+<br><br>
+
+<!-- MEDICATION -->
+<div class="card">
+  <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Medications</h3>
+  <div class="card-body">
+    <div id="tableMedication" class="table-editable">
+      <span class="table-add float-right mb-3 mr-2">
+        <a class="text-success" (click)="createPatient()">
+          <i fas icon="plus" size="2x"></i>
+        </a>
+      </span>
+      <table class="table table-bordered table-responsive-md table-striped text-center">
+        <tr>
+          <th class="text-center"> Id</th>
+          <th class="text-center"> Name</th>
+          <th class="text-center">Side effects</th>
+          <th class="text-center">Dosage</th>
+        </tr>
+        <tr *ngFor="let m of medications">
+          <td>
+            <span  contenteditable="true">{{m.id}}</span>
+          </td>
+          <td>
+            <span  contenteditable="true">{{m.name}}</span>
+          </td>
+          <td>
+            <span contenteditable="true"  >{{m.sideEffects}}</span>
+          </td>
+          <td>
+            <span contenteditable="true"  >{{m.dosage}}</span>
+          </td>
+          <td>
+            <span class="table-remove">
+              <button type="ready" color="danger" rounded="true" size="sm" class="my-0" (click)="deleteMedication(m)">Remove</button>
+            </span>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+<!-- Update -->
+<div class="col-md-6" align="center">
+  <h2>Update medication</h2>
+  <form id="updateMedicationForm">
+    <div class="form-group">
+      <label >Medication id</label>
+      <input type="number" name="idMed" class="form-control" [(ngModel)]="medicationToBeUpdated.id"/>
+    </div>
+    <div class="form-group">
+      <label >Name</label>
+      <input type="text" name="Name" class="form-control" [(ngModel)]="medicationToBeUpdated.name"/>
+    </div>
+    <div class="form-group">
+      <label >Side effects</label>
+      <input type="text"  name="email" class="form-control" [(ngModel)]="medicationToBeUpdated.sideEffects"/><br>
+    </div>
+    <div class="form-group">
+      <label >Dosage</label>
+      <input type="number"  name="address" class="form-control" [(ngModel)]="medicationToBeUpdated.dosage" /><br>
+    </div>
+    <button class="btn btn-success" (click)="updateMedication(medicationToBeUpdated)">Update medication</button>
+  </form>
+</div>
+
+<!-- Add -->
+<div class="col-md-6">
+  <h2>Add medication</h2>
+  <form id="addMedicationForm">
+    <div class="form-group">
+      <label >Name</label>
+      <input type="text" name="Name" class="form-control" [(ngModel)]="medicationToBeCreated.name"/>
+    </div>
+    <div class="form-group">
+      <label >Side effects</label>
+      <input type="text" name="email" class="form-control" [(ngModel)]="medicationToBeCreated.sideEffects"/><br>
+    </div>
+    <div class="form-group">
+      <label >Dosage</label>
+      <input type="number" name="address" class="form-control" [(ngModel)]="medicationToBeCreated.dosage" /><br>
+    </div>
+
+    <button class="btn btn-success" (click)="createMedication()">Add medication</button>
+  </form>
+</div>
+
+
+
+<!-- MEDICATION PLAN -->
+
+<div class="col-md-6" id="medicationPlan">
+
+  <h3 class="card-header text-center font-weight-bold text-uppercase py-4">Add new Medication Plan</h3>
+  <form id="addMedicationPlanForm">
+    <div class="form-group">
+      <label >Start date</label>
+      <input type="date" name="startDate" class="form-control" [(ngModel)]="newMedicationPlan.startDate" /><br>
+    </div>
+    <div class="form-group">
+      <label >End date</label>
+      <input type="date" name="endDate" class="form-control" [(ngModel)]="newMedicationPlan.endDate" /><br>
+    </div>
+    <div class="form-group">
+      <label>Patient</label>
+      <select  name="patientToAdd"  [(ngModel)]="newMedicationPlan.patient.id" >
+        <optgroup *ngFor="let p of patients" label="patientCaregivers">
+          <option  value="{{p.id}}">{{p.name}}</option>
+        </optgroup>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Medication needed  </label>
+      <select  name="newPill"  [(ngModel)]="newPill.medication.id" >
+        <optgroup *ngFor="let m of medications" label="patientCaregivers">
+          <option  value="{{m.id}}">{{m.name}}</option>
+        </optgroup>
+      </select><br>
+      <label>Intake interval : </label>
+      <label>From : </label>
+      <input type="number" name="Name" class="form-control" [(ngModel)]="intakeFrom"/>
+      <label>To : </label>
+      <input type="number" name="Name" class="form-control" [(ngModel)]="intakeTo"/>
+      <button class="btn btn-success" (click)="addPill()">Add new pill</button>
+    </div>
+
+    <button class="btn btn-success" (click)="createMedicationPlan()">Add medication plan</button>
+  </form>
+</div>

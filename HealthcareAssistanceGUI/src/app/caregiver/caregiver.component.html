@@ -1,0 +1,47 @@
+<div class="container">
+
+  <div class="col-md-6">
+    <h2>Account Details</h2>
+    <p><label>Name : </label> {{loggedCaregiver.name}} </p>
+    <p><label>Email : </label> {{loggedCaregiver.email}} </p>
+    <p><label>Address : </label> {{loggedCaregiver.address}} </p>
+    <p><label>Gender : </label> {{loggedCaregiver.gender}} </p>
+    <p><label>Birth date : </label> {{loggedCaregiver.birthDate}} </p>
+    <br><br>
+    <h3>Your Patients : </h3>
+    <ul *ngFor="let patient of loggedCaregiver.patients">
+      <li><label>Name : </label> {{patient.name}} </li>
+      <li><label>Email : </label> {{patient.email}} </li>
+      <li><label>Address : </label> {{patient.address}} </li>
+      <li><label>Gender : </label> {{patient.gender}} </li>
+      <li><label>Birth date : </label> {{patient.birthDate}} </li>
+      <h2>Patient's medication plan : </h2>
+          <ul *ngFor="let plan of patient.medicalRecord">
+            <li><label>Starts on : </label>{{plan.startDate}}</li>
+            <li><label>Ends on : </label>{{plan.endDate}}</li>
+            <li><label>Doctor's email: </label>{{plan.doctor.email}}</li>
+            <li><label>Pills : <br></label>
+              <ul *ngFor="let pill of plan.pills">
+                <li><label>Medication : </label>{{pill.medication.name}}</li>
+                <li><label>Intake interval : </label>{{pill.intakeInterval}}</li>
+                <li><label>Side effects : </label>{{pill.medication.sideEffects}}</li>
+              </ul>
+            </li>
+        </ul>
+    </ul>
+  </div>
+
+  <div>
+    <h2>Recommendations</h2>
+    <ul *ngFor="let r of recommendations">
+        <li><label>Patient's name : </label> {{r.patient?.name}} </li>
+        <li><label>Patient's email : </label> {{r.patient?.email}} </li>
+        <li><label>Message : </label> {{r.message}} </li>
+    </ul>
+  </div>
+
+
+
+
+</div>
+

@@ -1,0 +1,23 @@
+table {
+  width: 80%;
+  align-content: center;
+  alignment: center;
+  margin-top: 30px;
+}
+.card {
+  alignment: center;
+  padding: 30px 30px 30px 30px;
+  width: 100%;
+}
+.col-md-6 {
+  /*margin: 20px 20px 20px 20px;*/
+  padding: 30px 30px 30px 30px;
+  display: inline-block;
+}
+
+#medicationPlan {
+  alignment: center;
+  padding: 30px 30px 30px 30px;
+  width: 100%;
+  border-color: #333333;
+}

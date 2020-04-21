@@ -1,0 +1,26 @@
+<div class="container">
+  <div>
+    <h2>User Details</h2>
+    <p><label>Name : </label> {{loggedPatient.name}} </p>
+    <p><label>Email : </label> {{loggedPatient.email}} </p>
+    <p><label>Address : </label> {{loggedPatient.address}} </p>
+    <p><label>Gender : </label> {{loggedPatient.gender}} </p>
+    <p><label>Birth date : </label> {{loggedPatient.birthDate}} </p>
+    <p><label>Assigned Caregiver : </label> {{loggedPatient.caregiver.name}} </p>
+    <h3>Your medication plan : </h3>
+    <ul *ngFor="let plan of loggedPatient.medicalRecord">
+      <li><label>Starts on : </label>{{plan.startDate}}</li>
+      <li><label>Ends on : </label>{{plan.endDate}}</li>
+      <li><label>Doctor's email: </label>{{plan.doctor?.email}}</li>
+      <li><label>Pills : <br></label>
+        <ul *ngFor="let pill of plan.pills">
+          <li><label>Medication : </label>{{pill.medication.name}}</li>
+          <li><label>Intake interval : </label>{{pill.intakeInterval}}</li>
+          <li><label>Side effects : </label>{{pill.medication.sideEffects}}</li>
+        </ul>
+      </li>
+    </ul>
+
+  </div>
+</div>
+
