@@ -1,0 +1,33 @@
+syntax = "proto3";
+option java_package = "com.yrrhelp.gdpr";
+
+service medicationPlan {
+    rpc getPlan(PlanRequest) returns (PlanResponse);
+    rpc pillTaken(MessageRequest) returns (MessageResponse);
+    rpc pillNotTaken(MessageRequest) returns (MessageResponse);
+}
+message PlanRequest {
+    string id = 1;
+}
+message PlanResponse {
+    string startDate = 1;
+    string endDate = 2;
+    repeated Pill pills = 3;
+}
+message Pill {
+    string intakeInterval = 1;
+    string name = 2;
+    string sideEffects = 3;
+    string dosage = 4;
+}
+
+message MessageRequest {
+    Pill pill = 1;
+    string message = 2;
+}
+
+message MessageResponse {
+    string message = 1;
+}
+
+

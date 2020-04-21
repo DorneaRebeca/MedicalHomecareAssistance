@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="461.0" prefWidth="618.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+        <children>
+            <Label layoutX="14.0" prefHeight="55.0" prefWidth="260.0" text="Today's medication plan ">
+                <font>
+                    <Font name="System Bold Italic" size="22.0" />
+                </font>
+            </Label>
+            <TableView fx:id="pillTable" layoutX="42.0" layoutY="129.0" onMouseClicked="#getPill" prefHeight="241.0" prefWidth="387.0" />
+            <Button fx:id="taken" layoutX="492.0" layoutY="359.0" mnemonicParsing="false" onAction="#takePill" prefHeight="40.0" prefWidth="98.0" text="Pill Taken">
+                <font>
+                    <Font size="14.0" />
+                </font>
+            </Button>
+            <Text fx:id="clock" fill="#6a696b" layoutX="271.0" layoutY="78.0" lineSpacing="1.0" strokeType="OUTSIDE" strokeWidth="0.0" text="00" wrappingWidth="342.13671875">
+                <font>
+                    <Font size="36.0" />
+                </font>
+            </Text>
+      <Text fx:id="errorText" fill="#ff0202" layoutX="29.0" layoutY="416.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="413.13671875">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text fx:id="successMessage" fill="#11801c" layoutX="454.0" layoutY="201.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="130.13671875">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text fx:id="notifText" fill="#3b03ff" layoutX="42.0" layoutY="95.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="413.13671875">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+        </children>
+</AnchorPane>
