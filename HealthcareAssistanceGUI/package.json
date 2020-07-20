@@ -28,7 +28,7 @@
     "crypto-js": "^3.1.9-1",
     "events": "^3.0.0",
     "jquery": "latest",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "net": "^1.0.2",
     "ngx-soap": "^0.6.0",
     "ngx-xml2json": "^1.0.2",
